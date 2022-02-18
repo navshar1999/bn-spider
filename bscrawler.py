@@ -17,4 +17,4 @@ def book_spider(max_pages):
             print(title)
         page += 1 
 
-book_spider(1)
+book_spider(3)
