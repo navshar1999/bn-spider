@@ -1,3 +1,4 @@
+from re import A
 import requests
 from bs4 import BeautifulSoup
 
@@ -11,8 +12,13 @@ def book_spider(max_pages):
         plain_text = source_code.content
         soup = BeautifulSoup(plain_text,features="html.parser")
         for product_header in soup.findAll('h3',{'class':'product-info-title'}):
-            print(product_header.get_text()) 
+            title = product_header.get_text()
+            for link in product_header('a'): 
+                href = "https://www.barnesandnoble.com/" + link.get('href')
+            print(title)
+            print(href)
         page = page + 1 
 
 book_spider(1)
+
 
