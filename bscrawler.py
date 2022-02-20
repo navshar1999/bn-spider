@@ -15,10 +15,19 @@ def book_spider(max_pages):
             title = product_header.get_text()
             for link in product_header('a'): 
                 href = "https://www.barnesandnoble.com/" + link.get('href')
+                get_single_item_data(href)
             print(title)
             print(href)
         page = page + 1 
 
+
+def get_single_item_data(item_url): 
+    source_code = requests.get(item_url,headers=header)
+    plain_text = source_code.content
+    soup = BeautifulSoup(plain_text,features="html.parser")
+    for item_price in soup.findAll('span', {'class', 'price current-price ml-0'}):
+        print(item_price.get_text())
+    
 book_spider(1)
 
 
